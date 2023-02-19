@@ -8,6 +8,10 @@ import { SampleComponent } from './sample/sample.component';
 import { LoginComponent } from './login/login.component';
 import { IndexComponent } from './index/index.component';
 
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +22,9 @@ import { IndexComponent } from './index/index.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
