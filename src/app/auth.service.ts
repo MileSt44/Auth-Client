@@ -14,11 +14,11 @@ export class AuthService {
     })
   };
 
-  private tokenSubject = new BehaviorSubject<string>(null);
+  private tokenSubject = new BehaviorSubject<string | null>(null);
   public token$ = this.tokenSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    // provjeri token i stavi value
+    // check token and set value
     const token = localStorage.getItem('token');
     if (token) {
       this.tokenSubject.next(token);
@@ -43,37 +43,10 @@ export class AuthService {
     localStorage.removeItem('token');
   }
 
-  public getToken(): string {
+  public getToken(): string | null {
     return this.tokenSubject.value;
   }
 }
 
-//import { AuthService } from '../auth.service';
-//constructor(private authService: AuthService) { }
-//import { Component } from '@angular/core';
-//import { AuthService } from '../auth.service';
 
-//@Component({
-  /*selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
-})
-export class LoginComponent {
-  username: string;
-  password: string;
 
-  constructor(private authService: AuthService) { }
-
-  login() {
-    this.authService.login(this.username, this.password).subscribe(
-      (response) => {
-        console.log('Login successful');
-        // Redirect to the dashboard or home page
-      },
-      (error) => {
-        console.log('Login failed');
-        // Display an error message
-      }
-    );
-  }
-}*/

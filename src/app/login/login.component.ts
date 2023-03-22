@@ -3,6 +3,8 @@ import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
 import { sha512 } from 'sha512-crypt-ts';
 
+declare const gapi: any;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -27,6 +29,7 @@ export class LoginComponent implements OnInit {
       let user = this.storageService.getUser();
       this.username = user.username;
     }
+    this.initGoogleSignIn();
   }
 
   onSubmit(): void {
@@ -55,5 +58,39 @@ export class LoginComponent implements OnInit {
 
   reloadPage(): void {
     window.location.reload();
+  }
+
+  initGoogleSignIn(): void {
+    gapi.load('auth2', () => {
+      gapi.auth2.init({
+        client_id: '845181127864-f9j8f32j0ufsfi4spn21tapsi0k3r9k2.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin'
+      }).then(() => {
+        gapi.signin2.render('google-signin-button', {
+          scope: 'profile email',
+          width: 200,
+          height: 50,
+          longtitle: true,
+          theme: 'dark',
+          onsuccess: this.onGoogleSignIn.bind(this)
+        });
+      });
+    });
+  }
+
+  onGoogleSignIn(googleUser: any): void {
+    const profile = googleUser.getBasicProfile();
+    const id_token = googleUser.getAuthResponse().id_token;
+
+    // profile and id_token to sign in to your backend API
+    console.log(profile, id_token);
+  }
+
+  signInWithGoogle(): void {
+    gapi.auth2.getAuthInstance().signIn().then((user: any) => {
+      console.log(user);
+      // Use user.getBasicProfile() to access user's Google profile information
+      // and user.getAuthResponse().id_token to access the user's ID token.
+    });
   }
 }
