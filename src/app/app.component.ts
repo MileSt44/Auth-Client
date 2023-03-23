@@ -4,7 +4,7 @@ import { AuthService } from './services/auth.service';
 import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { SocialUser } from "@abacritt/angularx-social-login";
 
-
+// App component
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,38 +18,47 @@ export class AppComponent implements OnInit{
   username?: string;  
   user?: SocialUser;
 
-  constructor(private storageService: StorageService, 
+  // Constructor for app component
+  constructor(
+    private storageService: StorageService, 
     private authService: AuthService,
-    private socialAuthService: SocialAuthService) { }
+    private socialAuthService: SocialAuthService
+  ) {}
 
   ngOnInit(): void {
+    // Check if user is logged in
     this.isLoggedIn = this.storageService.isLoggedIn();
 
+    // Subscribe to social auth service to get user state
     this.socialAuthService.authState.subscribe((user) => {
       this.user = user;
       this.isLoggedIn = (user != null);
     });
     
     if (this.isLoggedIn) {
+      // Get user information from storage if logged in
       const user = this.storageService.getUser();
-      this.roles = user.roles;
 
+      // Get user roles and username
+      this.roles = user.roles;
       this.username = user.username;
     }
   }
   
+  // Function to log user out
   logout(): void {    
+    // Call logout function from auth service
     this.authService.logout().subscribe({
       next: res => {
         console.log(res);
-        
       },
       error: err => {
         console.log(err);
       }
     });
-    this.storageService.clean();
 
-        window.location.reload();
+    // Clear user information from storage and refresh page
+    this.storageService.clean();
+    window.location.reload();
   }
 }
