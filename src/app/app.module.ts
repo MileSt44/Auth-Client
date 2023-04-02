@@ -15,6 +15,7 @@ import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-s
 import {
   GoogleLoginProvider
 } from '@abacritt/angularx-social-login';
+import { InfoBarComponent } from './info-bar/info-bar.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {
     RegisterComponent,
     SampleComponent,
     LoginComponent,
-    IndexComponent
+    IndexComponent,
+    InfoBarComponent
   ],
   imports: [
     BrowserModule,
