@@ -1,4 +1,15 @@
+<!-- Google API Client Library for JavaScript -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My App</title>
+  <script src="https://apis.google.com/js/api.js"></script>
+</head>
+<body>
+
 <div id="app">
+  <!-- Navbar section -->
   <nav class="navbar navbar-expand navbar-dark bg-dark">
     <ul class="nav nav-tabs">
       <li class="nav-item">
@@ -16,6 +27,10 @@
     </ul>
   </nav>
 
+<<<<<<< HEAD
+=======
+  <!-- Google Sign-In button -->
+>>>>>>> 2a3657b946aeefbabe9ea638f254faa81b0118d8
   <div id="g_id_onload"
        data-client_id="845181127864-f9j8f32j0ufsfi4spn21tapsi0k3r9k2.apps.googleusercontent.com"
        data-context="signin"
@@ -23,7 +38,10 @@
        data-login_uri="http://localhost:4200"
        data-auto_prompt="false">
   </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2a3657b946aeefbabe9ea638f254faa81b0118d8
   <div class="g_id_signin"
        data-type="standard"
        data-shape="rectangular"
@@ -33,6 +51,10 @@
        data-logo_alignment="left">
   </div>
 
+<<<<<<< HEAD
+=======
+  <!-- Logged in user menu -->
+>>>>>>> 2a3657b946aeefbabe9ea638f254faa81b0118d8
   <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
     <li class="nav-item">
       <a href="https://localhost:7235/swagger/index.html" class="nav-link">{{ username }}</a>
@@ -42,9 +64,16 @@
     </li>
   </ul>
 
+<<<<<<< HEAD
   <div class="container">
     <router-outlet></router-outlet>
   </div>
 
   <app-info-bar></app-info-bar>
+=======
+  <!-- Angular router outlet for rendering components -->
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+>>>>>>> 2a3657b946aeefbabe9ea638f254faa81b0118d8
 </div>
