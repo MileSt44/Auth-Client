@@ -1,10 +1,96 @@
-/* You can add global styles to this file, and also import other style files */
-.nav-tabs {
-    margin-top: 70px;
-  }
+// You can add global styles to this file, and also import other style files
 
-  #google-signin-button {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-  
+.nav-tabs {
+  margin-top: 70px;
+}
+
+#google-signin-button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Custom styles for info bar component */
+
+.info-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #e8f5e9;
+  border-bottom: 1px solid #81c784;
+  color: #388e3c;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.info-bar .close {
+  cursor: pointer;
+}
+
+.info-bar .close:hover {
+  background-color: #c8e6c9;
+}
+
+.carousel-item h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.carousel-item p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.info-messages {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 20px;
+}
+
+.message-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border: 1px solid;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.message-item .message {
+  margin-right: 10px;
+  flex-grow: 1;
+}
+
+.message-item .close {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.message-item .close:hover {
+  background-color: #ffebee;
+}
+
+.message-item.error {
+  color: #b71c1c;
+  border-color: #e57373;
+  background-color: #ffcdd2;
+}
+
+.message-item.success {
+  color: #1b5e20;
+  border-color: #81c784;
+  background-color: #c8e6c9;
+}

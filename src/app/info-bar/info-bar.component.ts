@@ -34,8 +34,9 @@ export class InfoBarComponent implements OnInit {
 
   ngOnInit(): void {
     setInterval(() => {
-      const now = new Date();
-      this.currentSlideIndex = now.getSeconds() % 3; // Update the index every 3 seconds
+      this.currentSlideIndex++;
+      if(this.currentSlideIndex > 2)
+      this.currentSlideIndex = 0; // Update the index every 3 seconds
     }, 3000);
   }
 
