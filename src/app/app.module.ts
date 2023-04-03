@@ -8,12 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { IndexComponent } from './index/index.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
-
 import { InfoBarComponent } from './info-bar/info-bar.component';
-
-
-
 
 // Import the SocialLoginModule, SocialAuthServiceConfig, and GoogleLoginProvider for social login
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';

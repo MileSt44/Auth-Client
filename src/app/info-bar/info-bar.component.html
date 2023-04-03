@@ -1,18 +1,21 @@
-<p>info-bar works!</p>
+<div class="info-bar">
+  <span class="message">{{ slides[currentSlideIndex].title }}</span>
+  <span class="close" (click)="close()">&times;</span>
+</div>
+
 <div id="info-carousel" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <h3>Info message 1</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
-      <div class="carousel-item">
-        <h3>Info message 2</h3>
-        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      </div>
-      <div class="carousel-item">
-        <h3>Info message 3</h3>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-      </div>
+  <div class="carousel-inner">
+    <div *ngFor="let slide of slides; let i = index" class="carousel-item" [class.active]="i === currentSlideIndex">
+      <h3>{{ slide.title }}</h3>
+      <p>{{ slide.content }}</p>
     </div>
   </div>
-  
+</div>
+
+<div class="info-messages">
+  <div *ngFor="let message of messages" class="message-item" [class.error]="message.type === 'error'" [class.success]="message.type === 'success'">
+    <span class="message">{{ message.text }}</span>
+    <span class="time">{{ message.time | date: 'shortTime' }}</span>
+    <span class="close" (click)="removeMessage(message)">&times;</span>
+  </div>
+</div>
