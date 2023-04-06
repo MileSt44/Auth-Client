@@ -1,4 +1,11 @@
-<p>sample works!</p>
+<p *ngIf="isLoggedIn">Hello {{ userName }}!</p>
+<p *ngIf="!isLoggedIn">You are not logged in.</p>
+<p *ngIf="isLoggedIn">Hello, {{userName}}!</p>
+<p *ngIf="!isLoggedIn">Please log in to access this page.</p>
+<button *ngIf="!isLoggedIn" (click)="navigateToLogin()">Log In</button>
+
+<!-- Rest of the HTML for the sample component -->
+
 <!DOCTYPE html>
 <html>
   <head>

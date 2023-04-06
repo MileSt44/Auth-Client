@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -20,12 +20,15 @@ export class AuthService {
   // BehaviorSubject to hold the authentication token
   private tokenSubject = new BehaviorSubject<string>('');
   public token$ = this.tokenSubject.asObservable();
+  redirectUrl: string | undefined;
+  user$: any;
 
   constructor(private http: HttpClient) {
     // Check for a stored token and set the value of the BehaviorSubject accordingly
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (token) {
       this.tokenSubject.next(token);
+      console.log('Token in AuthService constructor:', token);
     }
   }
 
@@ -37,18 +40,24 @@ export class AuthService {
       // Save the token from the response and update the BehaviorSubject with it
       tap((response: any) => {
         const token = response.token;
+        if (!token) {
+          return throwError('Login failed: No token returned');
+        }
         this.tokenSubject.next(token);
-        // Save the token to local storage for persistence
-        localStorage.setItem('token', token);
+        // Save the token to session storage for persistence
+        sessionStorage.setItem('token', token);
+        console.log('Token saved to session storage:', token);
+        console.log('Response from login API:', response);
+        return of(response);
       })
     );
   }
 
   // Method for logging out
   public logout(): void {
-    // Clear the token in the BehaviorSubject and remove it from local storage
+    // Clear the token in the BehaviorSubject and remove it from session storage
     this.tokenSubject.next('');
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
   }
 
   // Method for getting the current authentication token
@@ -58,7 +67,32 @@ export class AuthService {
 
   // Method for checking if the user is logged in
   public isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!sessionStorage.getItem('token');
+  }
+  
+  // Method for getting the current user name
+  public getUserName(): string {
+    const token = this.tokenSubject.value;
+    if (!token) {
+      return '';
+    }
+    const payload = token.split('.')[1];
+    const decodedPayload = atob(payload);
+    const { username } = JSON.parse(decodedPayload);
+    return username;
+  }
+  
+  // Method for checking if the user is authenticated
+  public isAuthenticated(): boolean {
+    const token = this.tokenSubject.value;
+    if (!token) {
+      return false;
+    }
+    const payload = token.split('.')[1];
+    const decodedPayload = atob(payload);
+    const expiration = JSON.parse(decodedPayload).exp;
+    const expirationDate = new Date(expiration * 1000);
+    const now = new Date();
+    return now < expirationDate;
   }
 }
-

@@ -36,7 +36,8 @@ export class LoginComponent implements OnInit {
     const { username, password } = this.form;
 
     const hashedPassword = sha512.crypt(this.form.password, "s@lt4all");
-    // Zamini plain text s hasom
+    // Hash the plain text password with a salt
+
     this.form.password = hashedPassword;
 
     this.authService.login(username, hashedPassword).subscribe({

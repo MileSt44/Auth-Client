@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +10,24 @@ import { AuthService } from './auth.service';
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  // Implement the canActivate method of the CanActivate interface
-  canActivate(): boolean {
-    // Call the AuthService's isLoggedIn method to check if the user is logged in
-    if (this.authService.isLoggedIn()) {
-      // If the user is logged in, allow access to the requested route
-      return true;
-    } else {
-      // If the user is not logged in, redirect to the login page and disallow access to the requested route
-      this.router.navigate(['/login']);
-      return false;
-    }
+  canActivate(): Observable<boolean> {
+    console.log('AuthGuard activated');
+    return this.authService.token$.pipe(
+      map((token) => {
+        if (token) {
+          // If the user is logged in, allow access to the requested route
+          console.log('User is logged in');
+          return true;
+        } else {
+          // If the user is not logged in, save the URL of the requested route for later redirect
+          console.log('User is not logged in');
+          this.authService.redirectUrl = this.router.url;
+          // Redirect to the login page
+          this.router.navigate(['/login']);
+          // Disallow access to the requested route
+          return false;
+        }
+      })
+    );
   }
-}
+}  
