@@ -4,23 +4,22 @@ import { AuthService } from './services/auth.service';
 import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { SocialUser } from "@abacritt/angularx-social-login";
 
-// App component
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
   showModeratorBoard = false;
-  username?: string;  
+  username?: string;
   user?: SocialUser;
+  currentDate = new Date(); // holds the current date and time as a Date object
 
-  // Constructor for app component
   constructor(
-    private storageService: StorageService, 
+    private storageService: StorageService,
     private authService: AuthService,
     private socialAuthService: SocialAuthService
   ) {}
@@ -34,7 +33,7 @@ export class AppComponent implements OnInit{
       this.user = user;
       this.isLoggedIn = (user != null);
     });
-    
+
     if (this.isLoggedIn) {
       // Get user information from storage if logged in
       const user = this.storageService.getUser();
@@ -43,10 +42,15 @@ export class AppComponent implements OnInit{
       this.roles = user.roles;
       this.username = user.username;
     }
+
+    // Update the current date and time every second
+    setInterval(() => {
+      this.currentDate = new Date();
+    }, 1000);
   }
-  
+
   // Function to log user out
-  logout(): void {    
+  logout(): void {
     // Call logout function from auth service
     this.authService.logout().subscribe({
       next: res => {
