@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { AuthGuard } from '../auth.guard';
 
 @Component({
   selector: 'app-sample',
@@ -12,7 +11,7 @@ export class SampleComponent {
   isLoggedIn = false;
   userName: string;
 
-  constructor(private authService: AuthService, private router: Router, private authGuard: AuthGuard) {
+  constructor(private authService: AuthService, private router: Router) {
     this.isLoggedIn = this.authService.isAuthenticated();
     this.userName = this.authService.getUserName();
   }

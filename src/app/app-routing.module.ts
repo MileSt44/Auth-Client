@@ -4,11 +4,10 @@ import { SampleComponent } from './sample/sample.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { IndexComponent } from './index/index.component';
-import { AuthGuard } from './auth.guard';
 
 // Define the routes for the application
 const routes: Routes = [
-  { path: 'sample', component: SampleComponent, canActivate: [AuthGuard] },
+  { path: 'sample', component: SampleComponent},
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'index', component: IndexComponent }
