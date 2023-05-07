@@ -1,20 +1,72 @@
-<p *ngIf="isLoggedIn">Hello {{ userName }}!</p>
-<p *ngIf="!isLoggedIn">You are not logged in.</p>
-<p *ngIf="isLoggedIn">Hello, {{userName}}!</p>
-<p *ngIf="!isLoggedIn">Please log in to access this page.</p>
-<button *ngIf="!isLoggedIn" (click)="navigateToLogin()">Log In</button>
-
-<!-- Rest of the HTML for the sample component -->
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Sample Page - My Website</title>
-  </head>
-  <body>
-    <h1>Sample Page</h1>
-    <p>This is a sample page with minimal text.</p>
-    <button type="button" onclick="location.href='/'">Home</button>
-  </body>
+<head>
+	<title>Sample Component</title>
+	<!-- Add links to CSS and JS files here -->
+	<style>
+		body {
+			background-color: white;
+		}
+		.container {
+			background-color: white;
+			padding: 20px;
+			margin: 20px;
+		}
+		.color-button {
+			display: inline-block;
+			margin-right: 10px;
+			padding: 10px 20px;
+			font-size: 16px;
+			font-weight: bold;
+			color: black;
+			border: 1px solid black;
+			cursor: pointer;
+		}
+		.green {
+			background-color: green;
+		}
+		.red {
+			background-color: red;
+		}
+		.blue {
+			background-color: blue;
+		}
+		.white {
+			background-color: white;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+	  <h1>Sample Component</h1>
+	  <p>This is a sample component with some basic elements.</p>
+
+	  <hr>
+
+	  <h2>Buttons</h2>
+	  <button class="color-button green" data-color="green">Green</button>
+	  <button class="color-button red" data-color="red">Red</button>
+	  <button class="color-button blue" data-color="blue">Blue</button>
+	  <button class="color-button white" data-color="white">White</button>
+
+	  <hr>
+
+	</div>
+
+	<script>
+		function changeBackgroundColor(color) {
+			var containers = document.querySelectorAll('.container');
+			for (var i = 0; i < containers.length; i++) {
+				containers[i].style.backgroundColor = color;
+			}
+		}
+
+		var buttons = document.querySelectorAll('.color-button');
+		for (var i = 0; i < buttons.length; i++) {
+			buttons[i].addEventListener('click', function() {
+				changeBackgroundColor(this.getAttribute('data-color'));
+			});
+		}
+	</script>
+</body>
 </html>

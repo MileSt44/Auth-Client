@@ -3,6 +3,7 @@ import { StorageService } from './services/storage.service';
 import { AuthService } from './services/auth.service';
 import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { SocialUser } from "@abacritt/angularx-social-login";
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,14 +18,35 @@ export class AppComponent implements OnInit {
   username?: string;
   user?: SocialUser;
   currentDate = new Date(); // holds the current date and time as a Date object
+  isHomePage = false;
+  isSamplePage = false;
+  isLoginPage = false;
+  isRegisterPage = false;
 
   constructor(
     private storageService: StorageService,
     private authService: AuthService,
-    private socialAuthService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    // Set initial route-related variables based on current route URL
+    this.isHomePage = (this.router.url === '/');
+    this.isSamplePage = (this.router.url === '/sample');
+    this.isLoginPage = (this.router.url === '/login');
+    this.isRegisterPage = (this.router.url === '/register');
+  
+    // Subscribe to router events to update route-related variables
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.isHomePage = (event.urlAfterRedirects === '/');
+        this.isSamplePage = (event.urlAfterRedirects === '/sample');
+        this.isLoginPage = (event.urlAfterRedirects === '/login');
+        this.isRegisterPage = (event.urlAfterRedirects === '/register');
+      }
+    });
+
     // Check if user is logged in
     this.isLoggedIn = this.storageService.isLoggedIn();
 
@@ -64,5 +86,10 @@ export class AppComponent implements OnInit {
     // Clear user information from storage and refresh page
     this.storageService.clean();
     window.location.reload();
+  }
+
+  // Function to check if user has a specific role
+  hasRole(role: string): boolean {
+    return this.roles.includes(role);
   }
 }
