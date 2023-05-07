@@ -5,7 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { IndexComponent } from './index/index.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { InfoBarModule } from './info-bar/info-bar.module';
+
 import { NgModule } from '@angular/core';  
 import { AppRoutingModule } from './app-routing.module';  
 import { AppComponent } from './app.component';  
@@ -63,7 +63,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         FormsModule,
         HttpClientModule,
         SocialLoginModule, // Add the SocialLoginModule to imports array
-        InfoBarModule,
         NgbModule 
     ]
 })
