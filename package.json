@@ -25,6 +25,7 @@
     "bootstrap": "^5.2.3",
     "express": "^4.18.2",
     "mssql": "^9.1.1",
+    "popper.js": "^1.16.1",
     "rxjs": "~7.8.0",
     "sha512-crypt-ts": "^0.1.27",
     "tedious": "^15.1.3",

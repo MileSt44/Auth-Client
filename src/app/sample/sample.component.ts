@@ -1,15 +1,15 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
-import { NgbCarousel, NgbCarouselConfig, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
-import { NgFor } from '@angular/common';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
+import { NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'ngbd-carousel-pause',
-  templateUrl: './carousel-pause.html',
-  providers: [NgbCarouselConfig], // add NgbCarouselConfig provider
+  templateUrl: './carousel-pause.component.html',
+  styleUrls: ['./carousel-pause.component.css']
 })
-export class NgbdCarouselPause implements AfterViewInit {
-  images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/900/500`);
+export class NgbdCarouselPause {
+  images = [62, 83, 466, 965, 982, 1043, 738].map(n => `https://picsum.photos/id/${n}/900/500`);
 
   paused = false;
   unpauseOnArrow = false;
@@ -17,19 +17,8 @@ export class NgbdCarouselPause implements AfterViewInit {
   pauseOnHover = true;
   pauseOnFocus = true;
 
-  @ViewChild('carousel') carousel!: NgbCarousel; // add ! after NgbCarousel
-
-  constructor(private config: NgbCarouselConfig, private cdRef: ChangeDetectorRef, private elemRef: ElementRef) {
-    // customize default values of carousels used by this component tree
-    config.interval = 5000;
-    config.keyboard = true;
-    config.pauseOnHover = true;
-  }
-
-  ngAfterViewInit() {
-    // trigger change detection manually after setting up the view
-    this.cdRef.detectChanges();
-  }
+  @ViewChild('carousel', { static: true })
+  carousel!: NgbCarousel;
 
   togglePaused() {
     if (this.paused) {
@@ -41,8 +30,11 @@ export class NgbdCarouselPause implements AfterViewInit {
   }
 
   onSlide(slideEvent: NgbSlideEvent) {
-    if (this.unpauseOnArrow && slideEvent.paused &&
-      (slideEvent.source === NgbSlideEventSource.ARROW_LEFT || slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)) {
+    if (
+      this.unpauseOnArrow &&
+      slideEvent.paused &&
+      (slideEvent.source === NgbSlideEventSource.ARROW_LEFT || slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)
+    ) {
       this.togglePaused();
     }
     if (this.pauseOnIndicator && !slideEvent.paused && slideEvent.source === NgbSlideEventSource.INDICATOR) {
