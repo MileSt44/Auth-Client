@@ -1,72 +1,148 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Sample Component</title>
-	<!-- Add links to CSS and JS files here -->
-	<style>
-		body {
-			background-color: white;
-		}
-		.container {
-			background-color: white;
-			padding: 20px;
-			margin: 20px;
-		}
-		.color-button {
-			display: inline-block;
-			margin-right: 10px;
-			padding: 10px 20px;
-			font-size: 16px;
-			font-weight: bold;
-			color: black;
-			border: 1px solid black;
-			cursor: pointer;
-		}
-		.green {
-			background-color: green;
-		}
-		.red {
-			background-color: red;
-		}
-		.blue {
-			background-color: blue;
-		}
-		.white {
-			background-color: white;
-		}
-	</style>
-</head>
-<body>
-	<div class="container">
-	  <h1>Sample Component</h1>
-	  <p>This is a sample component with some basic elements.</p>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <title>Carousel Template · Bootstrap v5.0</title>
+        <!-- Bootstrap core CSS -->
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="carousel.css" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container-fluid"><a class="navbar-brand" href="#">Carousel</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                            <li class="nav-item active">
+</li>
+                            <li class="nav-item">
+</li>
+                        </ul>
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <ngb-carousel
+	#carousel
+	[interval]="1000"
+	[pauseOnHover]="pauseOnHover"
+	[pauseOnFocus]="pauseOnFocus"
+	(slide)="onSlide($event)"
+>
+	<ng-template ngbSlide *ngFor="let img of images; index as i">
+		<div class="carousel-caption">
+			<h3>My slide {{i + 1}} title</h3>
+		</div>
+		<a href="https://www.google.fr/?q=Number+{{i+1}}" target="_blank" rel="nofollow noopener noreferrer">
+			<div class="picsum-img-wrapper">
+				<img [src]="img" alt="My image {{i + 1}} description" />
+			</div>
+		</a>
+	</ng-template>
+</ngb-carousel>
 
-	  <hr>
+<hr />
 
-	  <h2>Buttons</h2>
-	  <button class="color-button green" data-color="green">Green</button>
-	  <button class="color-button red" data-color="red">Red</button>
-	  <button class="color-button blue" data-color="blue">Blue</button>
-	  <button class="color-button white" data-color="white">White</button>
-
-	  <hr>
-
-	</div>
-
-	<script>
-		function changeBackgroundColor(color) {
-			var containers = document.querySelectorAll('.container');
-			for (var i = 0; i < containers.length; i++) {
-				containers[i].style.backgroundColor = color;
-			}
-		}
-
-		var buttons = document.querySelectorAll('.color-button');
-		for (var i = 0; i < buttons.length; i++) {
-			buttons[i].addEventListener('click', function() {
-				changeBackgroundColor(this.getAttribute('data-color'));
-			});
-		}
-	</script>
-</body>
+<div class="form-check">
+	<input type="checkbox" class="form-check-input" id="pauseOnHover" [(ngModel)]="pauseOnHover" />
+	<label class="form-check-label" for="pauseOnHover">Pause on hover</label>
+</div>
+<div class="form-check">
+	<input type="checkbox" class="form-check-input" id="pauseOnFocus" [(ngModel)]="pauseOnFocus" />
+	<label class="form-check-label" for="pauseOnFocus">Pause on focus</label>
+</div>
+<div class="form-check">
+	<input type="checkbox" class="form-check-input" id="unpauseOnArrow" [(ngModel)]="unpauseOnArrow" />
+	<label class="form-check-label" for="unpauseOnArrow">Unpause when clicking on arrows</label>
+</div>
+<div class="form-check">
+	<input type="checkbox" class="form-check-input" id="pauseOnIndicator" [(ngModel)]="pauseOnIndicator" />
+	<label class="form-check-label" for="pauseOnIndicator">Pause when clicking on navigation indicator</label>
+</div>
+<button type="button" (click)="togglePaused()" class="btn btn-outline-dark btn-sm">
+	{{paused ? 'Cycle' : 'Pause' }}
+</button>
+            <!-- Marketing messaging and featurettes
+  ================================================== -->
+            <!-- Wrap the rest of the page in another container to center all the content. -->
+            <div class="container marketing">
+                <!-- Three columns of text below the carousel -->
+                <div class="row">
+                    <div class="col-lg-4">
+                        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#777"></rect>
+                            <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                        </svg>
+                        <h2>Heading</h2>
+                        <p>Test for angular app.</p>
+                        <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+                    </div>
+                    <!-- /.col-lg-4 -->
+                    <div class="col-lg-4">
+                        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#777"></rect>
+                            <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                        </svg>
+                        <h2>Heading</h2>
+                        <p>Test for angular app.</p>
+                        <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+                    </div>
+                    <!-- /.col-lg-4 -->
+                    <div class="col-lg-4">
+                        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#777"></rect>
+                            <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                        </svg>
+                        <h2>Heading</h2>
+                        <p>Test for angular app.</p>
+                        <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
+                    </div>
+                    <!-- /.col-lg-4 -->
+                </div>
+                <!-- /.row -->
+                <!-- START THE FEATURETTES -->
+                <hr class="featurette-divider">
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading">Sample pagee healine</h2>
+                        <p class="lead">Sample page text..</p>
+                    </div>
+                    <div class="col-md-5">
+                        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="#eee"></rect>
+                            <text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
+                        </svg>
+                    </div>
+                </div>
+                <hr class="featurette-divider">
+                <div class="row featurette">
+</div>
+                <div class="row featurette">
+</div>
+                <hr class="featurette-divider">
+                <!-- /END THE FEATURETTES -->
+            </div>
+            <!-- /.container -->
+            <!-- FOOTER -->
+            <footer class="container">
+                <p class="float-end"><a href="#">Back to top</a></p>
+            </footer>
+        </main>
+        <script src="assets/js/popper.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+    </body>
 </html>

@@ -1,28 +1,53 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { NgbCarousel, NgbCarouselConfig, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
+import { NgFor } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-sample',
-  templateUrl: './sample.component.html',
-  styleUrls: ['./sample.component.scss']
+  selector: 'ngbd-carousel-pause',
+  templateUrl: './carousel-pause.html',
+  providers: [NgbCarouselConfig], // add NgbCarouselConfig provider
 })
-export class SampleComponent {
-  isLoggedIn = false;
-  userName: string;
+export class NgbdCarouselPause implements AfterViewInit {
+  images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.isLoggedIn = this.authService.isAuthenticated();
-    this.userName = this.authService.getUserName();
+  paused = false;
+  unpauseOnArrow = false;
+  pauseOnIndicator = false;
+  pauseOnHover = true;
+  pauseOnFocus = true;
+
+  @ViewChild('carousel') carousel!: NgbCarousel; // add ! after NgbCarousel
+
+  constructor(private config: NgbCarouselConfig, private cdRef: ChangeDetectorRef, private elemRef: ElementRef) {
+    // customize default values of carousels used by this component tree
+    config.interval = 5000;
+    config.keyboard = true;
+    config.pauseOnHover = true;
   }
 
-  // Add this method to check if the user is authenticated
-  isAuthenticated(): boolean {
-    return this.authService.isAuthenticated();
+  ngAfterViewInit() {
+    // trigger change detection manually after setting up the view
+    this.cdRef.detectChanges();
   }
-  
-  // Add this method to navigate to the login page if the user is not authenticated
-  navigateToLogin() {
-    this.router.navigate(['/login']);
+
+  togglePaused() {
+    if (this.paused) {
+      this.carousel.cycle();
+    } else {
+      this.carousel.pause();
+    }
+    this.paused = !this.paused;
+  }
+
+  onSlide(slideEvent: NgbSlideEvent) {
+    if (this.unpauseOnArrow && slideEvent.paused &&
+      (slideEvent.source === NgbSlideEventSource.ARROW_LEFT || slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)) {
+      this.togglePaused();
+    }
+    if (this.pauseOnIndicator && !slideEvent.paused && slideEvent.source === NgbSlideEventSource.INDICATOR) {
+      this.togglePaused();
+    }
   }
 }
+
