@@ -1,7 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import { NgForOf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'ngbd-carousel-pause',
@@ -42,4 +43,8 @@ export class NgbdCarouselPause {
     }
   }
 }
+
+// Export the SampleComponent class
+
+
 
