@@ -6,9 +6,10 @@ import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } fr
 
 @Component({
   selector: 'ngbd-carousel-pause',
-  templateUrl: './carousel-pause.component.html',
-  styleUrls: ['./carousel-pause.component.css']
+  template: '',
+  styles: []
 })
+
 export class NgbdCarouselPause {
   images = [62, 83, 466, 965, 982, 1043, 738].map(n => `https://picsum.photos/id/${n}/900/500`);
 
