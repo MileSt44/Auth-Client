@@ -1,5 +1,5 @@
 // You can add global styles to this file, and also import other style files
-
+@import '~bootstrap/scss/bootstrap';
 @import "~bootstrap/dist/css/bootstrap.css";
 
 
@@ -58,3 +58,29 @@
   border-color: #81c784;
   background-color: #c8e6c9;
 }
+/* Apply a responsive font size based on the screen width */
+html {
+  font-size: calc(14px + 0.5vw);
+}
+
+/* Make images responsive by default */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure all elements adjust to the width of their container */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Optionally, set a maximum width for the main content area */
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+/* Add more specific responsive styles for different elements as needed */
