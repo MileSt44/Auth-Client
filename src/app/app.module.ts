@@ -28,7 +28,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         SampleComponent,
         LoginComponent,
         IndexComponent,
-        //InfoBarComponent,
         CarouselComponent
         
     ],

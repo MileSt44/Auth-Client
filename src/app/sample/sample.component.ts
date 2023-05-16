@@ -44,7 +44,7 @@ export class NgbdCarouselPause {
   }
 }
 
-// Export the SampleComponent class
+export class SampleComponent { }
 
 
 
