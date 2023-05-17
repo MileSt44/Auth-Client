@@ -14,11 +14,13 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
+
 // Import the SocialLoginModule, SocialAuthServiceConfig, and GoogleLoginProvider for social login
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { CarouselComponent } from './carousel/carousel.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';   
+import { NgbdCarouselPauseComponent } from './ngbd-carousel-pause/ngbd-carousel-pause.component';  
 
 @NgModule({
     declarations: [
@@ -28,8 +30,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         SampleComponent,
         LoginComponent,
         IndexComponent,
-        CarouselComponent
-        
+        CarouselComponent,
+        NgbdCarouselPauseComponent       
     ],
     providers: [
         {
