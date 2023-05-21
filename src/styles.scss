@@ -1,5 +1,6 @@
+// You can add global styles to this file, and also import other style files
+@import '~bootstrap/scss/bootstrap';
 @import "~bootstrap/dist/css/bootstrap.css";
-
 
 
 .nav-tabs {
@@ -73,7 +74,8 @@ img {
   box-sizing: border-box;
 }
 
-/* Optionally, set a maximum width for the main content area */
+/* 
+set a maximum width for the main content area */
 .container {
   max-width: 1200px;
   margin-left: auto;
