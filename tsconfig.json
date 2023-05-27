@@ -23,7 +23,7 @@
       "dom"
     ],
     "typeRoots": ["node_modules/@types"],
-    "types": ["bcryptjs"]
+    "types": ["bcryptjs", "node"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

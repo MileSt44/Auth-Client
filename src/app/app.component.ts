@@ -4,6 +4,7 @@ import { AuthService } from './services/auth.service';
 import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { SocialUser } from "@abacritt/angularx-social-login";
 import { Router, NavigationEnd } from '@angular/router';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
@@ -27,8 +28,12 @@ export class AppComponent implements OnInit {
     private storageService: StorageService,
     private authService: AuthService,
     private socialAuthService: SocialAuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private translate: TranslateService
+  ) {
+    translate.setDefaultLang('en');
+    translate.use('en');
+  }
 
   ngOnInit(): void {
     // Set initial route-related variables based on current route URL

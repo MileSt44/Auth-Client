@@ -11,6 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';  
 import { CommonModule } from '@angular/common';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClient} from '@angular/common/http';
 
 
 
@@ -20,7 +23,7 @@ import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-s
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { CarouselComponent } from './carousel/carousel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';   
-import { NgbdCarouselPauseComponent } from './ngbd-carousel-pause/ngbd-carousel-pause.component';
+import { NgbdCarouselPause } from './ngbd-carousel-pause/ngbd-carousel-pause.component';
 import { TranslationComponent } from './translation/translation.component';  
 
 @NgModule({
@@ -32,7 +35,7 @@ import { TranslationComponent } from './translation/translation.component';
         LoginComponent,
         IndexComponent,
         CarouselComponent,
-        NgbdCarouselPauseComponent,
+        NgbdCarouselPause,
         TranslationComponent       
     ],
     providers: [
@@ -66,7 +69,18 @@ import { TranslationComponent } from './translation/translation.component';
         FormsModule,
         HttpClientModule,
         SocialLoginModule, // Add the SocialLoginModule to imports array
-        NgbModule 
+        NgbModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })        
     ]
 })
 export class AppModule { }
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+    return new TranslateHttpLoader(http);
+}
